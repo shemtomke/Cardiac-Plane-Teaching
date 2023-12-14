@@ -24,10 +24,12 @@ public class GameManager : MonoBehaviour
 
     CameraMovement cameraMovement;
     CameraHolder cameraHolder;
+    Probe probe;
     private void Start()
     {
         cameraMovement = FindObjectOfType<CameraMovement>();
         cameraHolder = FindObjectOfType<CameraHolder>();
+        probe = FindObjectOfType<Probe>();
 
         currentChamberView = ChamberViews.Apical;
 
@@ -54,46 +56,25 @@ public class GameManager : MonoBehaviour
     // Position the Probe & Camera for each chamber selected
     public void SelectChamber(int selectedChamber)
     {
-        switch (selectedChamber)
+        if (selectedChamber >= 0 && selectedChamber < probePositions.Count)
         {
-            case 0:
-                currentChamberView = ChamberViews.Apical;
-                probeObject.transform.position = probePositions[0];
-                probeObject.transform.rotation = Quaternion.Euler(probeRotations[0]);
-                isSelectChamber = true;
-                cameraMovement.lockCamera = true;
-                break;
-            case 1:
-                currentChamberView = ChamberViews.ParasternalLongAxis;
-                probeObject.transform.position = probePositions[1];
-                probeObject.transform.rotation = Quaternion.Euler(probeRotations[1]);
-                isSelectChamber = true;
-                cameraMovement.lockCamera = true;
-                break;
-            case 2:
-                currentChamberView = ChamberViews.ParasternalShortAxis;
-                probeObject.transform.position = probePositions[2];
-                probeObject.transform.rotation = Quaternion.Euler(probeRotations[2]);
-                isSelectChamber = true;
-                cameraMovement.lockCamera = true;
-                break;
-            case 3:
-                currentChamberView = ChamberViews.Subcostal;
-                probeObject.transform.position = probePositions[3];
-                probeObject.transform.rotation = Quaternion.Euler(probeRotations[3]);
-                isSelectChamber = true;
-                cameraMovement.lockCamera = true;
-                break;
-            case 4:
-                currentChamberView = ChamberViews.Suprasternal;
-                probeObject.transform.position = probePositions[4];
-                probeObject.transform.rotation = Quaternion.Euler(probeRotations[4]);
-                isSelectChamber = true;
-                cameraMovement.lockCamera = true;
-                break;
-            default:
-                isSelectChamber = false;
-                break;
+            currentChamberView = (ChamberViews)selectedChamber;
+            probeObject.transform.position = probePositions[selectedChamber];
+            probeObject.transform.rotation = Quaternion.Euler(probeRotations[selectedChamber]);
+
+            Debug.Log(probeRotations[selectedChamber]);
+            Debug.Log(probeObject.transform.rotation.eulerAngles);
+
+            probe.rotationSlider.value = probeRotations[selectedChamber].x;
+            probe.angulateSlider.value = probeRotations[selectedChamber].y;
+            probe.tiltSlider.value = probeRotations[selectedChamber].z;
+
+            isSelectChamber = true;
+            cameraMovement.lockCamera = true;
+        }
+        else
+        {
+            isSelectChamber = false;
         }
     }
     // Enable & Disable Specific Game Objects
@@ -145,7 +126,6 @@ public class GameManager : MonoBehaviour
         cameraMovement.ResetCam();
         cameraHolder.ResetCam();
     }
-    
 }
 [Serializable]
 public enum ChamberViews

@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 public class Probe : MonoBehaviour
 {
-    public bool clockWise = false; // if false then - anticlockwise (0 to 90) set x axis to 90 (greater than 0),
-                                   // otherwise, clock wise (90 to 0) set x axis to 0
-
     public Slider rotationSlider;
     public Slider tiltSlider;
     public Slider angulateSlider;
@@ -20,6 +17,10 @@ public class Probe : MonoBehaviour
     }
     private void Update()
     {
+        Axis();
+    }
+    public void UpdateRotation()
+    {
         // Get the rotation values from the sliders
         float xRotation = rotationSlider.value;
         float yRotation = angulateSlider.value;
@@ -30,13 +31,9 @@ public class Probe : MonoBehaviour
 
         // Apply the new rotation to the object
         transform.rotation = newRotation;
-        Axis();
     }
     void Axis()
     {
         axisText.text = "X : " + transform.eulerAngles.x + "\nY : " + transform.eulerAngles.y + "\nZ : " + transform.eulerAngles.z;
     }
 }
-
-// Parasternal Long - 10 - 11 oclock
-// 
