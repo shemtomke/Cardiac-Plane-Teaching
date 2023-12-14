@@ -23,9 +23,11 @@ public class GameManager : MonoBehaviour
     public List<Vector3> probeRotations;
 
     CameraMovement cameraMovement;
+    CameraHolder cameraHolder;
     private void Start()
     {
         cameraMovement = FindObjectOfType<CameraMovement>();
+        cameraHolder = FindObjectOfType<CameraHolder>();
 
         currentChamberView = ChamberViews.Apical;
 
@@ -44,8 +46,8 @@ public class GameManager : MonoBehaviour
             isMenu = false;
         }
 
-        //GoToMenu();
         AllowTweaking();
+        DefaultCamera();
         gameUI.SetActive(isSelectChamber);
         menu.SetActive(isMenu);
     }
@@ -124,6 +126,14 @@ public class GameManager : MonoBehaviour
             cameraMovement.lockCamera = !cameraMovement.lockCamera;
         }
     }
+    void DefaultCamera()
+    {
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            cameraMovement.ResetCam();
+            cameraHolder.ResetCam();
+        }
+    }
     void ResetObjects()
     {
         activateHeart = true;
@@ -131,7 +141,11 @@ public class GameManager : MonoBehaviour
 
         heart.SetActive(activateHeart);
         ribCage.SetActive(activateRib);
+
+        cameraMovement.ResetCam();
+        cameraHolder.ResetCam();
     }
+    
 }
 [Serializable]
 public enum ChamberViews
