@@ -37,3 +37,6 @@ public class Probe : MonoBehaviour
         axisText.text = "X : " + transform.eulerAngles.x + "\nY : " + transform.eulerAngles.y + "\nZ : " + transform.eulerAngles.z;
     }
 }
+
+// Parasternal Long - 10 - 11 oclock
+// 

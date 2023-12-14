@@ -14,15 +14,25 @@ public class CameraMovement : MonoBehaviour
 
     float xRotation;
     float yRotation;
+
+    GameManager gameManager;
     private void Start()
     {
-        LockCursor();
+        gameManager = FindObjectOfType<GameManager>();
     }
     private void Update()
     {
-        Movement();
-        Rotation();
-        ClampCameraPosition();
+        if(gameManager.isSelectChamber)
+        {
+            Movement();
+            Rotation();
+            ClampCameraPosition();
+            LockCursor();
+        }
+        else
+        {
+            UnLockCursor();
+        }
     }
     void Movement()
     {
@@ -55,12 +65,12 @@ public class CameraMovement : MonoBehaviour
 
         transform.position = clampedPosition;
     }
-    void LockCursor()
+    public void LockCursor()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
-    void UnLockCursor()
+    public void UnLockCursor()
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
