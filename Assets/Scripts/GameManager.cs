@@ -22,8 +22,11 @@ public class GameManager : MonoBehaviour
     public List<Vector3> probePositions;
     public List<Vector3> probeRotations;
 
+    CameraMovement cameraMovement;
     private void Start()
     {
+        cameraMovement = FindObjectOfType<CameraMovement>();
+
         currentChamberView = ChamberViews.Apical;
 
         activateHeart = true;
@@ -41,7 +44,8 @@ public class GameManager : MonoBehaviour
             isMenu = false;
         }
 
-        GoToMenu();
+        //GoToMenu();
+        AllowTweaking();
         gameUI.SetActive(isSelectChamber);
         menu.SetActive(isMenu);
     }
@@ -55,30 +59,35 @@ public class GameManager : MonoBehaviour
                 probeObject.transform.position = probePositions[0];
                 probeObject.transform.rotation = Quaternion.Euler(probeRotations[0]);
                 isSelectChamber = true;
+                cameraMovement.lockCamera = true;
                 break;
             case 1:
                 currentChamberView = ChamberViews.ParasternalLongAxis;
                 probeObject.transform.position = probePositions[1];
                 probeObject.transform.rotation = Quaternion.Euler(probeRotations[1]);
                 isSelectChamber = true;
+                cameraMovement.lockCamera = true;
                 break;
             case 2:
                 currentChamberView = ChamberViews.ParasternalShortAxis;
                 probeObject.transform.position = probePositions[2];
                 probeObject.transform.rotation = Quaternion.Euler(probeRotations[2]);
                 isSelectChamber = true;
+                cameraMovement.lockCamera = true;
                 break;
             case 3:
                 currentChamberView = ChamberViews.Subcostal;
                 probeObject.transform.position = probePositions[3];
                 probeObject.transform.rotation = Quaternion.Euler(probeRotations[3]);
                 isSelectChamber = true;
+                cameraMovement.lockCamera = true;
                 break;
             case 4:
                 currentChamberView = ChamberViews.Suprasternal;
                 probeObject.transform.position = probePositions[4];
                 probeObject.transform.rotation = Quaternion.Euler(probeRotations[4]);
                 isSelectChamber = true;
+                cameraMovement.lockCamera = true;
                 break;
             default:
                 isSelectChamber = false;
@@ -104,11 +113,24 @@ public class GameManager : MonoBehaviour
     }
     public void GoToMenu()
     {
+        isMenu = !isMenu;
+        isSelectChamber = false;
+        ResetObjects();
+    }
+    public void AllowTweaking()
+    {
         if (Input.GetKeyUp(KeyCode.Escape) && isSelectChamber)
         {
-            isMenu = !isMenu;
-            isSelectChamber = false;
+            cameraMovement.lockCamera = !cameraMovement.lockCamera;
         }
+    }
+    void ResetObjects()
+    {
+        activateHeart = true;
+        activateRib = true;
+
+        heart.SetActive(activateHeart);
+        ribCage.SetActive(activateRib);
     }
 }
 [Serializable]

@@ -12,6 +12,8 @@ public class CameraMovement : MonoBehaviour
 
     public Transform orientation;
 
+    public bool lockCamera; // Allows access to the navigation for rotation, angulate and tilr
+
     float xRotation;
     float yRotation;
 
@@ -19,15 +21,17 @@ public class CameraMovement : MonoBehaviour
     private void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+
+        lockCamera = true;
     }
     private void Update()
     {
-        if(gameManager.isSelectChamber)
+        if(gameManager.isSelectChamber && lockCamera)
         {
+            LockCursor();
             Movement();
             Rotation();
             ClampCameraPosition();
-            LockCursor();
         }
         else
         {
