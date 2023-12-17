@@ -126,6 +126,10 @@ public class GameManager : MonoBehaviour
         cameraMovement.ResetCam();
         cameraHolder.ResetCam();
     }
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }
 [Serializable]
 public enum ChamberViews
