@@ -9,15 +9,14 @@ public class Probe : MonoBehaviour
     public Slider tiltSlider;
     public Slider angulateSlider;
 
-    public Text axisText;
-
+    GameManager gameManager;
     private void Start()
     {
-
+        gameManager = FindObjectOfType<GameManager>();
     }
     private void Update()
     {
-        Axis();
+
     }
     public void UpdateRotation()
     {
@@ -32,8 +31,16 @@ public class Probe : MonoBehaviour
         // Apply the new rotation to the object
         transform.rotation = newRotation;
     }
-    void Axis()
+    public void TiltAngle(float minAngle, float maxAngle)
     {
-        axisText.text = "X : " + transform.eulerAngles.x + "\nY : " + transform.eulerAngles.y + "\nZ : " + transform.eulerAngles.z;
+        tiltSlider.minValue = minAngle;
+        tiltSlider.maxValue = maxAngle;
+    }
+    public void RotationAngle(float minAngle, float maxAngle)
+    {
+        rotationSlider.minValue = minAngle;
+        rotationSlider.maxValue = maxAngle;
     }
 }
+
+// Rotation = 30 difference

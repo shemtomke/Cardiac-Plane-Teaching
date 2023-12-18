@@ -2,25 +2,35 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public Toggle clockToggle;
     public ChamberViews currentChamberView;
+    public int selectedChamberView;
 
+    [Space(20)]
     public GameObject probeObject;
     public GameObject ribCage;
     public GameObject heart;
+    public GameObject clock;
     public GameObject menu;
     public GameObject gameUI;
 
+    [Space(20)]
     public bool activateRib;
     public bool activateHeart;
     public bool isMenu;
     public bool isSelectChamber;
 
+    [Space(10)]
     //Adjust to the preferred positions for each chamber/probe
     public List<Vector3> probePositions;
     public List<Vector3> probeRotations;
+
+    [Space(10)]
+    public List<Chamber> chambers;
 
     CameraMovement cameraMovement;
     CameraHolder cameraHolder;
@@ -52,6 +62,8 @@ public class GameManager : MonoBehaviour
         DefaultCamera();
         gameUI.SetActive(isSelectChamber);
         menu.SetActive(isMenu);
+
+        clock.SetActive(clockToggle.isOn);
     }
     // Position the Probe & Camera for each chamber selected
     public void SelectChamber(int selectedChamber)
@@ -59,6 +71,7 @@ public class GameManager : MonoBehaviour
         if (selectedChamber >= 0 && selectedChamber < probePositions.Count)
         {
             currentChamberView = (ChamberViews)selectedChamber;
+            selectedChamberView = selectedChamber;
             probeObject.transform.position = probePositions[selectedChamber];
             probeObject.transform.rotation = Quaternion.Euler(probeRotations[selectedChamber]);
 
@@ -68,6 +81,10 @@ public class GameManager : MonoBehaviour
             probe.rotationSlider.value = probeRotations[selectedChamber].x;
             probe.angulateSlider.value = probeRotations[selectedChamber].y;
             probe.tiltSlider.value = probeRotations[selectedChamber].z;
+
+            // Tilt Angle Restriction
+            //probe.TiltAngle(chambers[selectedChamber].minTiltAngle, chambers[selectedChamber].maxtiltAngle);
+            probe.RotationAngle(chambers[selectedChamber].minRotationAngle, chambers[selectedChamber].maxRotationAngle);
 
             isSelectChamber = true;
             cameraMovement.lockCamera = true;
@@ -130,6 +147,13 @@ public class GameManager : MonoBehaviour
     {
         Application.Quit();
     }
+}
+[System.Serializable]
+public class Chamber
+{
+    public ChamberViews ChamberViews;
+    public float maxtiltAngle, minTiltAngle;
+    public float maxRotationAngle, minRotationAngle;
 }
 [Serializable]
 public enum ChamberViews
