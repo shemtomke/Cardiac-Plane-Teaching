@@ -1,6 +1,6 @@
-using Newtonsoft.Json.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -41,27 +41,9 @@ public class Rotation : MonoBehaviour
         currentSliderValue = value;
         //probeObj.transform.eulerAngles = new Vector3(value, probeObj.transform.eulerAngles.y, probeObj.transform.eulerAngles.z);
     }
-
-    //private void RotateAround(Vector3 axis)
-    //{
-    //    // Perform the rotation using transform.RotateAround
-    //    probeObj.transform.RotateAround(probeObj.transform.position, axis, rotationSpeed * Time.deltaTime);
-    //}
     private void RotateAround(Vector3 axis)
     {
-        // Calculate the current rotation angle around the x-axis
-        float currentRotationX = probeObj.transform.localRotation.eulerAngles.x;
-
-        // Calculate the new rotation angle
-        float newRotationX = currentRotationX + rotationSpeed * Time.deltaTime;
-
-        // Clamp the rotation angle within the specified range
-        newRotationX = Mathf.Clamp(newRotationX, 0, 90);
-
-        // Create a new local rotation quaternion with the updated angle
-        Quaternion newRotation = Quaternion.Euler(newRotationX, 0f, 0f);
-
-        // Apply the rotation using localRotation
-        probeObj.transform.localRotation = newRotation;
+        // Perform the rotation using transform.RotateAround
+        probeObj.transform.RotateAround(probeObj.transform.position, axis, rotationSpeed * Time.deltaTime);
     }
 }
