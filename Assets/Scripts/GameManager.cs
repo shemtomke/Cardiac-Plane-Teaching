@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
 
             //  Angle Restriction
             probe.TiltAngle(chambers[selectedChamber].minTiltAngle, chambers[selectedChamber].maxtiltAngle);
-            //probe.RotationAngle(chambers[selectedChamber].minRotationAngle, chambers[selectedChamber].maxRotationAngle);
+            probe.RotationAngle(chambers[selectedChamber].minRotationAngle, chambers[selectedChamber].maxRotationAngle);
 
             isSelectChamber = true;
             cameraMovement.lockCamera = true;

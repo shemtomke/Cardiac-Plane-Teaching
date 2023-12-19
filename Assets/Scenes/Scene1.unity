@@ -768,7 +768,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &66362062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2341,6 +2341,7 @@ GameObject:
   m_Component:
   - component: {fileID: 594664013}
   - component: {fileID: 594664014}
+  - component: {fileID: 594664015}
   m_Layer: 5
   m_Name: Tilt
   m_TagString: Untagged
@@ -2423,19 +2424,21 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3471717915027814275}
-        m_TargetAssemblyTypeName: Probe, Assembly-CSharp
-        m_MethodName: UpdateRotation
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &594664015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594664012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9686b30780a14f45b8599467e4a7450, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 10
+  tiltSlider: {fileID: 594664014}
 --- !u!1 &637819088
 GameObject:
   m_ObjectHideFlags: 0
@@ -5405,7 +5408,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1293220309
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6184,7 +6187,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1488645420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8601,6 +8604,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2049316698}
   - component: {fileID: 2049316699}
+  - component: {fileID: 2049316700}
   m_Layer: 5
   m_Name: Angulation
   m_TagString: Untagged
@@ -8683,19 +8687,21 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3471717915027814275}
-        m_TargetAssemblyTypeName: Probe, Assembly-CSharp
-        m_MethodName: UpdateRotation
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &2049316700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2049316697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce9f62b2d459f3044b80ff14bfc0f6ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 10
+  angulateSlider: {fileID: 2049316699}
 --- !u!1 &2072864985
 GameObject:
   m_ObjectHideFlags: 0

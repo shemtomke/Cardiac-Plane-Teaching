@@ -20,8 +20,6 @@ public class Probe : MonoBehaviour
     }
     private void Update()
     {
-        //Rotation(rotationSlider.value);
-
         rotationText.text = "" + rotationSlider.value;
         tiltText.text = "" + tiltSlider.value;
         angulateText.text = "" + angulateSlider.value;
@@ -44,23 +42,10 @@ public class Probe : MonoBehaviour
         // Apply the new rotation to the object
         transform.localRotation = newRotation;
     }
-    public void Rotation(float sliderValue)
-    {
-        // Adjust the rotation speed based on the slider value
-        float rotationSpeed = Mathf.Lerp(0f, 5f, sliderValue);
-
-        // Rotate around the up axis with the adjusted speed
-        transform.RotateAround(transform.position, transform.up, rotationSpeed * Time.deltaTime);
-    }
     public void TiltAngle(float minAngle, float maxAngle)
     {
-        Debug.Log(tiltSlider.maxValue);
-
         tiltSlider.minValue -= minAngle;
         tiltSlider.maxValue += maxAngle;
-
-        Debug.Log(maxAngle);
-        Debug.Log(tiltSlider.maxValue);
     }
     public void RotationAngle(float minAngle, float maxAngle)
     {
@@ -68,5 +53,3 @@ public class Probe : MonoBehaviour
         rotationSlider.maxValue = maxAngle;
     }
 }
-
-// Rotation = 30 difference
