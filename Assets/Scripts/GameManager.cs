@@ -82,9 +82,9 @@ public class GameManager : MonoBehaviour
             probe.angulateSlider.value = probeRotations[selectedChamber].y;
             probe.tiltSlider.value = probeRotations[selectedChamber].z;
 
-            // Tilt Angle Restriction
-            //probe.TiltAngle(chambers[selectedChamber].minTiltAngle, chambers[selectedChamber].maxtiltAngle);
-            probe.RotationAngle(chambers[selectedChamber].minRotationAngle, chambers[selectedChamber].maxRotationAngle);
+            //  Angle Restriction
+            probe.TiltAngle(chambers[selectedChamber].minTiltAngle, chambers[selectedChamber].maxtiltAngle);
+            //probe.RotationAngle(chambers[selectedChamber].minRotationAngle, chambers[selectedChamber].maxRotationAngle);
 
             isSelectChamber = true;
             cameraMovement.lockCamera = true;
