@@ -8,8 +8,6 @@ public class Tilt : MonoBehaviour
     public float rotationSpeed = 10f;
     public Slider tiltSlider;
 
-    private float previousSliderValue = 0;
-
     float currentSliderValue;
     Probe probe;
     GameObject probeObj;
@@ -18,30 +16,28 @@ public class Tilt : MonoBehaviour
     {
         probe = FindObjectOfType<Probe>();
         probeObj = probe.gameObject;
-
+    }
+    public void UpdateSlider()
+    {
         currentSliderValue = tiltSlider.value;
-
-        // Subscribe to the OnValueChanged event of the slider
         tiltSlider.onValueChanged.AddListener(OnSliderValueChanged);
     }
     private void OnSliderValueChanged(float value)
     {
-        if (value > currentSliderValue)
+        float delta = value - currentSliderValue;
+
+        // Rotate only if there's a significant change in the slider value
+        if (Mathf.Abs(delta) > 0.01f)
         {
-            // Slider is increasing
-            TiltAround(probeObj.transform.right);
-        }
-        else if (value < currentSliderValue)
-        {
-            TiltAround(-probeObj.transform.right);
+            RotateAround(probeObj.transform.right, delta);
         }
 
-        // when it stops
         currentSliderValue = value;
     }
-    private void TiltAround(Vector3 axis)
+
+    private void RotateAround(Vector3 axis, float delta)
     {
-        // Perform the rotation using transform.RotateAround
-        probeObj.transform.RotateAround(probeObj.transform.position, axis, rotationSpeed * Time.deltaTime);
+        float rotationAmount = rotationSpeed * delta;
+        probeObj.transform.RotateAround(probeObj.transform.position, axis, rotationAmount);
     }
 }

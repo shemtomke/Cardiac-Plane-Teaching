@@ -24,32 +24,19 @@ public class Probe : MonoBehaviour
         tiltText.text = "" + tiltSlider.value;
         angulateText.text = "" + angulateSlider.value;
     }
-    public void UpdateRotation() //Called By the Sliders
-    {
-        // Get the rotation values from the sliders
-        float xRotation = rotationSlider.value;
-        float yRotation = angulateSlider.value;
-        float zRotation = tiltSlider.value;
-
-        // Convert Euler angles to quaternion
-        Quaternion xQuaternion = Quaternion.Euler(xRotation, 0, 0);
-        Quaternion yQuaternion = Quaternion.Euler(0, yRotation, 0);
-        Quaternion zQuaternion = Quaternion.Euler(0, 0, zRotation);
-
-        // Combine the quaternions to represent the new rotation
-        Quaternion newRotation = xQuaternion * yQuaternion * zQuaternion;
-
-        // Apply the new rotation to the object
-        transform.localRotation = newRotation;
-    }
     public void TiltAngle(float minAngle, float maxAngle)
     {
-        tiltSlider.minValue -= minAngle;
-        tiltSlider.maxValue += maxAngle;
+        tiltSlider.minValue = minAngle;
+        tiltSlider.maxValue = maxAngle;
     }
     public void RotationAngle(float minAngle, float maxAngle)
     {
         rotationSlider.minValue = minAngle;
         rotationSlider.maxValue = maxAngle;
+    }
+    public void AngulateAngle(float minAngle, float maxAngle)
+    {
+        angulateSlider.minValue = minAngle;
+        angulateSlider.maxValue = maxAngle;
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -35,11 +36,17 @@ public class GameManager : MonoBehaviour
     CameraMovement cameraMovement;
     CameraHolder cameraHolder;
     Probe probe;
+    Tilt tilt;
+    Angulate angulate;
+    Rotation rotation;
     private void Start()
     {
         cameraMovement = FindObjectOfType<CameraMovement>();
         cameraHolder = FindObjectOfType<CameraHolder>();
         probe = FindObjectOfType<Probe>();
+        tilt = FindObjectOfType<Tilt>();
+        angulate = FindObjectOfType<Angulate>();
+        rotation = FindObjectOfType<Rotation>();
 
         currentChamberView = ChamberViews.Apical;
 
@@ -72,19 +79,22 @@ public class GameManager : MonoBehaviour
         {
             currentChamberView = (ChamberViews)selectedChamber;
             selectedChamberView = selectedChamber;
-            probeObject.transform.position = probePositions[selectedChamber];
-            probeObject.transform.rotation = Quaternion.Euler(probeRotations[selectedChamber]);
-
-            Debug.Log(probeRotations[selectedChamber]);
-            Debug.Log(probeObject.transform.rotation.eulerAngles);
+            
+            //  Angle Restriction
+            probe.TiltAngle(chambers[selectedChamber].minTiltAngle, chambers[selectedChamber].maxtiltAngle);
+            probe.RotationAngle(chambers[selectedChamber].minRotationAngle, chambers[selectedChamber].maxRotationAngle);
+            probe.AngulateAngle(chambers[selectedChamber].minAngulateAngle, chambers[selectedChamber].maxAngulateAngle);
 
             probe.rotationSlider.value = probeRotations[selectedChamber].x;
             probe.angulateSlider.value = probeRotations[selectedChamber].y;
             probe.tiltSlider.value = probeRotations[selectedChamber].z;
 
-            //  Angle Restriction
-            probe.TiltAngle(chambers[selectedChamber].minTiltAngle, chambers[selectedChamber].maxtiltAngle);
-            probe.RotationAngle(chambers[selectedChamber].minRotationAngle, chambers[selectedChamber].maxRotationAngle);
+            tilt.UpdateSlider();
+            angulate.UpdateSlider();
+            rotation.UpdateSlider();
+
+            probeObject.transform.position = probePositions[selectedChamber];
+            probeObject.transform.rotation = Quaternion.Euler(probeRotations[selectedChamber]);
 
             isSelectChamber = true;
             cameraMovement.lockCamera = true;
@@ -154,6 +164,7 @@ public class Chamber
     public ChamberViews ChamberViews;
     public float maxtiltAngle, minTiltAngle;
     public float maxRotationAngle, minRotationAngle;
+    public float maxAngulateAngle, minAngulateAngle;
 }
 [Serializable]
 public enum ChamberViews
