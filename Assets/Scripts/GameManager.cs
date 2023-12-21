@@ -16,8 +16,20 @@ public class GameManager : MonoBehaviour
     public GameObject ribCage;
     public GameObject heart;
     public GameObject clock;
+
     public GameObject menu;
     public GameObject gameUI;
+
+    public GameObject topNavUI;
+    public GameObject escObject;
+
+    public GameObject orientationPanel;
+
+    public GameObject chamberMarkingObj;
+
+    public GameObject chamberDescriptionPanel;
+    public Text chamberDescription;
+    public Text chamberTitle;
 
     [Space(20)]
     public bool activateRib;
@@ -29,6 +41,7 @@ public class GameManager : MonoBehaviour
     //Adjust to the preferred positions for each chamber/probe
     public List<Vector3> probePositions;
     public List<Vector3> probeRotations;
+    public List<Vector3> chamberMarkings;
 
     [Space(10)]
     public List<Chamber> chambers;
@@ -36,9 +49,11 @@ public class GameManager : MonoBehaviour
     CameraMovement cameraMovement;
     CameraHolder cameraHolder;
     Probe probe;
+
     Tilt tilt;
     Angulate angulate;
     Rotation rotation;
+
     private void Start()
     {
         cameraMovement = FindObjectOfType<CameraMovement>();
@@ -95,7 +110,11 @@ public class GameManager : MonoBehaviour
 
             probeObject.transform.position = probePositions[selectedChamber];
             probeObject.transform.rotation = Quaternion.Euler(probeRotations[selectedChamber]);
+            chamberMarkingObj.transform.position = chamberMarkings[selectedChamber];
+            chamberTitle.text = chambers[selectedChamber].ChamberViews.ToString();
+            chamberDescription.text = chambers[selectedChamber].chamberDescription;
 
+            orientationPanel.SetActive(false);
             isSelectChamber = true;
             cameraMovement.lockCamera = true;
         }
@@ -132,6 +151,17 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Escape) && isSelectChamber)
         {
             cameraMovement.lockCamera = !cameraMovement.lockCamera;
+
+            if(cameraMovement.lockCamera)
+            {
+                escObject.SetActive(true);
+                topNavUI.SetActive(false);
+            }
+            else
+            {
+                escObject.SetActive(false);
+                topNavUI.SetActive(true);
+            }
         }
     }
     void DefaultCamera()
@@ -162,6 +192,7 @@ public class GameManager : MonoBehaviour
 public class Chamber
 {
     public ChamberViews ChamberViews;
+    public string chamberDescription;
     public float maxtiltAngle, minTiltAngle;
     public float maxRotationAngle, minRotationAngle;
     public float maxAngulateAngle, minAngulateAngle;

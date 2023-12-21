@@ -39,6 +39,10 @@ public class CameraMovement : MonoBehaviour
             UnLockCursor();
         }
     }
+    private void LateUpdate()
+    {
+        
+    }
     void Movement()
     {
         // Camera Movement
