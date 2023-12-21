@@ -145,6 +145,12 @@ public class GameManager : MonoBehaviour
         isMenu = !isMenu;
         isSelectChamber = false;
         ResetObjects();
+
+        // Get the current scene index
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        // Load the current scene again to reset it
+        SceneManager.LoadScene(currentSceneIndex);
     }
     public void AllowTweaking()
     {
